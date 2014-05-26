@@ -1,0 +1,23 @@
+package by.epam.news.database.exception;
+
+public class DaoLayerException extends Exception {
+
+	private static final long serialVersionUID = 8574100671396236979L;
+
+	public DaoLayerException() {
+		super();
+	}
+
+	public DaoLayerException(String arg0, Throwable arg1) {
+		super(arg0, arg1);
+	}
+
+	public DaoLayerException(String arg0) {
+		super(arg0);
+	}
+
+	public DaoLayerException(Throwable arg0) {
+		super(arg0);
+	}
+
+}
