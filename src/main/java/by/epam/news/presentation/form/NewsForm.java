@@ -7,12 +7,22 @@ import org.apache.struts.action.ActionForm;
 
 import by.epam.news.entity.News;
 
-public class NewsForm extends ActionForm {
+public final class NewsForm extends ActionForm {
 
 	private static final long serialVersionUID = 1L;
 
 	private News newsMessage = new News();
 	private List<News> newsList = new ArrayList<News>();
+	private int[] listNewsId;
+	private int newsId;
+
+	public int getNewsId() {
+		return newsId;
+	}
+
+	public void setNewsId(int id) {
+		this.newsId = id;
+	}
 
 	public NewsForm() {
 		super();
@@ -32,6 +42,14 @@ public class NewsForm extends ActionForm {
 
 	public void setNewsList(List<News> newsList) {
 		this.newsList = newsList;
+	}
+
+	public int[] getListNewsId() {
+		return listNewsId;
+	}
+
+	public void setListNewsId(int[] listNewsId) {
+		this.listNewsId = listNewsId;
 	}
 
 }

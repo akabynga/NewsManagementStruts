@@ -6,14 +6,13 @@
 <tiles-definitions>
 	<!-- Common tiles -->
 	<definition name="page.main" path="/jsp/layouts/layout.jsp">
-		<put name="header" value="/jsp/tiles/header/header-tiles.jsp" />
-		<put name="footer" value="/jsp/tiles/footer/footer-tiles.jsp" />
-
-		<!--  <put name="menu" value="/jsp/tiles/menu/menu-tiles.jsp" /> -->
+		<put name="header" value="/jsp/tiles/header/header.jsp" />
+		<put name="footer" value="/jsp/tiles/footer/footer.jsp" />
+		<put name="menu" value="/jsp/menu/menu.jsp" />
 	</definition>
 
 	<!-- Body -->
-	<definition extends="page.main" name="page.createnews">
+	<definition extends="page.main" name="page.addnews">
 		<put name="body" value="/jsp/tiles/body/createnews-body.jsp" />
 	</definition>
 
@@ -28,6 +27,5 @@
 	<definition extends="page.main" name="page.viewnews">
 		<put name="body" value="/jsp/tiles/body/viewnews-body.jsp" />
 	</definition>
-
 
 </tiles-definitions>

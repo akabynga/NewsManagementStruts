@@ -6,28 +6,38 @@
 <struts-config>
 	<!-- Form bean -->
 	<form-beans>
-		<form-bean name="NewsForm" type="by.epam.news.form.presentation.NewsForm" />
+		<form-bean name="newsForm" type="by.epam.news.presentation.form.NewsForm" />
+		<form-bean name="languageForm"
+			type="by.epam.news.presentation.form.LanguageForm" />
 	</form-beans>
+	<!-- Global exception -->
+	<global-exceptions>
+		<exception key="error.global.mesage" type="java.lang.Exception"
+			handler="com.epam.exceptions.ExceptionHandler.MyExceptionHandler"
+			path="/jsp/tiles/body/error-body.jsp" />
+	</global-exceptions>
 	<!-- Global forwards -->
 	<global-forwards>
 	</global-forwards>
 	<!-- Action mappings -->
 	<action-mappings>
-		<action path="/news" type="org.springframework.web.struts.DelegatingActionProxy"
-			parameter="method" name="newsForm" scope="session">
+		<action path="/news"
+			type="org.springframework.web.struts.DelegatingActionProxy"
+			parameter="method" name="newsForm">
 			<forward name="listsuccess" path="page.newslist" />
 			<forward name="viewsuccess" path="page.viewnews" redirect="true" />
-			<forward name="deletesuccess" path="/news.do?method=list" redirect="true" />
-			<forward name="modifysuccess" path="/news.do?method=edit" />
-			<forward name="savesuccess" path="/news.do?method=view" redirect="true" />
-			<forward name="createsuccess" path="page.createnews" />
+			<forward name="deletesuccess" path="/news.do?method=list"
+				redirect="true" />
+			<forward name="modifysuccess" path="page.addnews" />
+			<forward name="savesuccess" path="/news.do?method=view"
+				redirect="true" />
+			<forward name="createsuccess" path="page.addnews" />
 		</action>
-	<!-- Welcome page -->
-		<action path="/welcome" type="org.apache.struts.actions.ForwardAction"
-			parameter="page.welcome" />
+		<action path="/locale" name="languageForm"
+			type="by.epam.news.presentation.action.LanguageAction" />
 	</action-mappings>
 	<!-- Resources -->
-	<message-resources parameter="com/epam/testapp/properties/ApplicationResource"
+	<message-resources parameter="by/epam/news/properties/ApplicationResource"
 		null="false" />
 	<!-- Plug-in -->
 	<plug-in className="org.apache.struts.tiles.TilesPlugin">

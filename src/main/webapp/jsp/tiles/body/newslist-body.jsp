@@ -1,33 +1,55 @@
-<%@ page
-	language="java"
-	contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib
-	prefix="c"
-	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html">
-<html>
-<head>
-<meta
-	http-equiv="Content-Type"
-	content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div>
-		<c:forEach
-			items="${newsForm.newsList}"
-			var="news">
-			<div class="newsBlock">
 
-				<h2 class="title">
-					<label>${news.newsTitle}</label>
-				</h2>
-				<p class="brief">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><bean:message key="layout.title.newslist" /></title>
+<c:set var="page" value="page.newslist" scope="session" />
+
+<div class="titlelist">
+	<html:link action="/news.do?method=list">
+		<bean:message key="layout.title.welcome" />
+	</html:link>
+	<bean:message key="layout.title.newslist" />
+</div>
+
+<html:form action="/news.do?method=delete" onsubmit="return validateRemove(this);" >
+	<c:forEach items="${newsForm.newsList}" var="news">
+		<div class="newsMessage">
+			<div>
+				<div class="newsheader">
+					<div class="newsdate">
+						<fmt:formatDate value="${news.currentDate}" pattern="dd/MM/yyyy" />
+					</div>
+					<div class="newstitle">${news.title}</div>
+				</div>
+				<div class="newsbrief">
 					<label>${news.brief}</label>
-				</p>
+				</div>
+				<div class="controlbar">
+					<bean:define id="id" property="newsMessage.id" value="${news.id}" />
+					<html:link action="/news.do?method=view" paramId="newsMessage.id"
+						paramName="id">
+						<bean:message key="layout.button.view" />
+					</html:link>
+					<html:link action="/news.do?method=edit" paramId="newsMessage.id"
+						paramName="id">
+						<bean:message key="layout.button.edit" />
+					</html:link>
+					<html:multibox property="listNewsId" value="${news.id}" />
+				</div>
 			</div>
-		</c:forEach>
+		</div>
+		<br>
+	</c:forEach>
+	<div id="deleteBtn">
+		<html:submit styleClass="control">
+			<bean:message key="layout.button.delete" />
+		</html:submit>
 	</div>
-</body>
-</html>
+</html:form>
+

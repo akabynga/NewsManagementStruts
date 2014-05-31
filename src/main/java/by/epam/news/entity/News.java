@@ -1,7 +1,7 @@
 package by.epam.news.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public final class News implements Serializable, Cloneable {
 
@@ -12,6 +12,7 @@ public final class News implements Serializable, Cloneable {
 	private String brief;
 	private String content;
 	private Date currentDate;
+	private boolean selected = false;
 
 	public News() {
 
@@ -57,13 +58,22 @@ public final class News implements Serializable, Cloneable {
 		this.currentDate = currentDate;
 	}
 
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((brief == null) ? 0 : brief.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + ((currentDate == null) ? 0 : currentDate.hashCode());
+		result = prime * result
+				+ ((currentDate == null) ? 0 : currentDate.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
@@ -122,7 +132,8 @@ public final class News implements Serializable, Cloneable {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder().append(getClass()).append("\n");
+		StringBuilder builder = new StringBuilder().append(getClass()).append(
+				"\n");
 		builder.append("NewsId: ").append(id).append("\n");
 		builder.append("NewsDate: ").append(currentDate).append("\n");
 		builder.append("Title: ").append(title).append("\n");

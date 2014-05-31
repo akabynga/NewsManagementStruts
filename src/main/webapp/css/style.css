@@ -1,0 +1,116 @@
+.header {
+	padding: 5px;
+	border: solid 1px #000;
+}
+
+#langbar {
+	position: static;
+	float: right;
+}
+
+A:visited {
+	color: blue;
+}
+
+A:active {
+	color: orange;
+}
+
+.footer {
+	text-align: center;
+	bottom: 5px;
+	padding: 5px;
+	border: solid 1px #000;
+	height: 20px;
+	width: 98%;
+	margin: auto 0;
+	position: absolute;
+}
+
+.content {
+	border: solid 1px #000;
+	padding: 10px;
+	width: 450px;
+	height: 770px;
+}
+
+.newstitle {
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.newsdate {
+	text-align: right;
+	text-decoration: underline;
+	color: black;
+}
+
+.newsbrief {
+	text-align: left;
+	font-size: 16px;
+}
+
+.newsheader {
+	position: static;
+}
+
+.controlbar {
+	text-align: right;
+}
+
+.newsMessage {
+	background-color: #F2F2F2;
+}
+
+.sidebar {
+	width: 20%;
+	float: left;
+	background-color: #a4a4a4;
+	padding-left: 2px;
+}
+
+#headertitle {
+	font-size: 26px;
+	color: blue;
+}
+
+.menubar {
+	float: left;
+	background-color: #B7B4B4;
+}
+
+.content {
+	width: 75%;
+	float: right;
+}
+
+#menuTitle {
+	background-color: #7E7E7E;
+	text-align: center;
+	color: #ffffff;
+}
+
+#menuInner {
+	background-color: #ffffff;
+	text-align: center;
+	width: 80%;
+	float: right;
+	margin-right: 6%;
+	margin-bottom: 20px;
+	margin-top: 5px;
+}
+
+.mainpart {
+	margin: 15px 0;
+	overflow: hidden;
+	min-width: 800px;
+}
+
+.menubar {
+	width: 20%;
+}
+
+.menubar ul {
+	list-style-type: circle;
+}

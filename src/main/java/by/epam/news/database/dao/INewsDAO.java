@@ -2,19 +2,21 @@ package by.epam.news.database.dao;
 
 import java.util.List;
 
-import by.epam.news.database.exception.DaoLayerException;
 import by.epam.news.entity.News;
+import by.epam.news.exception.DaoLayerException;
 
 public interface INewsDAO {
 
 	List<News> getList() throws DaoLayerException;
 
-	News save() throws DaoLayerException;
+	News save(News news) throws DaoLayerException;
 
-	News findById() throws DaoLayerException;
+	News findById(int id) throws DaoLayerException;
 
-	void delete() throws DaoLayerException;
+	void delete(int id) throws DaoLayerException;
 
-	void update() throws DaoLayerException;
+	void update(News news) throws DaoLayerException;
+
+	void deleteList(List<Integer> newsList) throws DaoLayerException;
 
 }

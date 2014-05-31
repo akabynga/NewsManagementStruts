@@ -76,6 +76,7 @@ public final class ConnectionPool implements IConnectionPool {
 			}
 			LOG.info("Connection pool succesfully initialized.");
 		} catch (SQLException e) {
+			LOG.error("Problem with init pool");
 			throw new RuntimeException(e);
 		} catch (ClassNotFoundException e) {
 			LOG.error("Problem with driver name");
@@ -106,7 +107,7 @@ public final class ConnectionPool implements IConnectionPool {
 			}
 		} catch (SQLException e) {
 			LOG.warn(
-					"SQLException at conection isClosed () checking. Connection not added.",
+					"SQLException at conection isClosed () checking. Connection not closed.",
 					e);
 		}
 	}
@@ -119,9 +120,7 @@ public final class ConnectionPool implements IConnectionPool {
 			try {
 				connection = pool.take();
 			} catch (InterruptedException e) {
-				LOG.warn(
-						"Waiting connection, interrupt exception. Return null connection.",
-						e);
+				LOG.warn("Waiting connection, interrupt exception.", e);
 			}
 			if (connection != null) {
 				try {

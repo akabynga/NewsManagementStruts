@@ -1,4 +1,4 @@
-package by.epam.news.database.exception;
+package by.epam.news.exception;
 
 public class DaoLayerException extends Exception {
 
