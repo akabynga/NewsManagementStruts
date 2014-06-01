@@ -6,8 +6,8 @@ function validateNewsMessage(formName) {
 	var titleMaxLength = 100;
 	var briefMaxLength = 500;
 	var contentMaxLength = 1024;
-	var date_pattern = "^0[1-9]|[10-12]/0[1-9]|[10-31]/20[0-9][0-9]$";
-	
+	var date_pattern = "^(20[0-9][0-9])-(0[1-9]|[10-12])-(0[1-9]|[10-31])$";
+
 	var element = null;
 	element = form.elements["newsMessage.title"];
 	if (markIfEmpty(element)) {
@@ -41,7 +41,7 @@ function validateNewsMessage(formName) {
 	}
 }
 function markIfInvalid(regexp, testValue, element) {
-	 var dateRegExp = new RegExp(regexp);
+	var dateRegExp = new RegExp(regexp);
 	if (!dateRegExp.test(testValue)) {
 		element.className = "invalid";
 		return true;

@@ -138,7 +138,6 @@ public final class NewsAction extends DispatchAction {
 		News news = new News();
 		NewsForm newsForm = (NewsForm) form;
 		newsForm.setNewsMessage(news);
-
 		return mapping.findForward(NewsConstant.PARAM_NAME_CREATE_NEWS);
 	}
 

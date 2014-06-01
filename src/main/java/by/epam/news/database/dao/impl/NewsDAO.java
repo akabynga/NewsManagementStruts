@@ -1,7 +1,6 @@
 package by.epam.news.database.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,14 +66,12 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 		LOG.info("DAO. Saving news...");
 		Connection connection = getConnection();
 		PreparedStatement preparedStatement = null;
-		System.out.println(new Date(news.getCurrentDate().getTime()));
 		try {
 			preparedStatement = connection.prepareStatement(CREATE_NEWS,
 					new String[] { "id" });
 			preparedStatement.setString(1, news.getTitle());
 			preparedStatement.setString(2, news.getContent());
-			System.out.println(new Date(news.getCurrentDate().getTime()));
-			preparedStatement.setDate(3, new Date(news.getCurrentDate().getTime()));
+			preparedStatement.setDate(3, news.getCurrentDate());
 			preparedStatement.setString(4, news.getBrief());
 			preparedStatement.executeUpdate();
 			ResultSet resultSet = preparedStatement.getGeneratedKeys();

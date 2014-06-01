@@ -26,10 +26,10 @@
 		</tr>
 		<tr>
 			<jsp:useBean id="date" class="java.util.Date" />
-			<fmt:formatDate value="${date}" pattern="MM/dd/yyyy" var="currDate" />
+			<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="currDate" />
 			<c:if test="${newsForm.newsMessage.currentDate ne null}">
 				<fmt:formatDate value="${newsForm.newsMessage.currentDate }"
-					pattern="MM/dd/yyyy" var="currDate" />
+					pattern="yyyy-MM-dd" var="currDate" />
 			</c:if>
 			<td><b><bean:message key="layout.form.newsdate" /></b></td>
 			<td><html:text name="newsForm"
