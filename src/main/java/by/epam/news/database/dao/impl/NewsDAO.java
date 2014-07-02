@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +28,8 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 	private static final String SELECT_ALL_NEWS = "SELECT * FROM NEWS ORDER BY NEWSDATE DESC";
 	private static final String SELECT_NEWS_BY_ID = "SELECT * FROM NEWS WHERE ID = ?";
 	private static final String UPDATE_NEWS = "UPDATE NEWS SET TITLE=?,NEWSDATE=?, BRIEF=?, CONTENT=? where ID=?";
-	private static final String DELETE_NEWS_BY_ID = "DELETE FROM NEWS WHERE ID=?";
 	private static final String CREATE_NEWS = "INSERT INTO NEWS "
-			+ "(TITLE,CONTENT, NEWSDATE, BRIEF ) VALUES (?, ?, ?, ?)";
+			+ "(ID,TITLE,CONTENT, NEWSDATE, BRIEF ) VALUES (AUTOINC_SEQ.nextval, ?, ?, ?, ?)";
 	private static final String DELETE_NEWS = "DELETE FROM NEWS WHERE ID IN (?)";
 
 	@Override
@@ -38,12 +38,12 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 		List<News> listNews = new ArrayList<News>();
 		News news = null;
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		Statement statement = null;
 		ResultSet resultSet = null;
 		connection = getConnection();
 		try {
-			preparedStatement = connection.prepareStatement(SELECT_ALL_NEWS);
-			resultSet = preparedStatement.executeQuery();
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(SELECT_ALL_NEWS);
 			while (resultSet.next()) {
 				news = new News();
 				news.setId(resultSet.getInt(PARAM_NAME_ID));
@@ -54,9 +54,9 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 				listNews.add(news);
 			}
 		} catch (SQLException e) {
-			throw new DaoLayerException();
+			throw new DaoLayerException("Some problem with getList() method", e);
 		} finally {
-			closeOperation(connection, preparedStatement);
+			closeOperation(connection, statement);
 		}
 		return listNews;
 	}
@@ -80,7 +80,7 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 			}
 			return news;
 		} catch (SQLException e) {
-			throw new DaoLayerException();
+			throw new DaoLayerException("Some problem with save() method", e);
 		} finally {
 			closeOperation(connection, preparedStatement);
 		}
@@ -107,28 +107,12 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 				news.setContent(resultSet.getString(PARAM_NAME_CONTENT));
 			}
 		} catch (SQLException e) {
-			throw new DaoLayerException();
+			throw new DaoLayerException("Some problem with findById() method",
+					e);
 		} finally {
 			closeOperation(connection, preparedStatement);
 		}
 		return news;
-	}
-
-	@Override
-	public void delete(int id) throws DaoLayerException {
-		LOG.info("DAO. Deleting news by id...");
-		Connection connection = getConnection();
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = connection.prepareStatement(DELETE_NEWS_BY_ID);
-			preparedStatement.setInt(1, id);
-			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			throw new DaoLayerException();
-		} finally {
-			closeOperation(connection, preparedStatement);
-		}
-
 	}
 
 	@Override
@@ -145,7 +129,7 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 			preparedStatement.setInt(5, news.getId());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			throw new DaoLayerException();
+			throw new DaoLayerException("Some problem with update method", e);
 		} finally {
 			closeOperation(connection, preparedStatement);
 		}
@@ -167,7 +151,8 @@ public final class NewsDAO extends AbstractDAO implements INewsDAO {
 			}
 			preparedStatement.execute();
 		} catch (SQLException e) {
-			throw new DaoLayerException();
+			throw new DaoLayerException(
+					"Some problem with deleteList() method", e);
 		} finally {
 			closeOperation(connection, preparedStatement);
 		}

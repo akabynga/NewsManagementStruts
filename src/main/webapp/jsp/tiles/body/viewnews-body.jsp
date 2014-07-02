@@ -8,41 +8,47 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="page" value="page.viewnews" scope="session" />
-<html:form action="/news">
-	<html:hidden property="method" value="none" />
-	<html:hidden property="newsId" value="${newsForm.newsMessage.id}" />
-	<div class="message">
-		<table>
-			<col width="150px">
-			<col>
-			<tr>
-				<td><b><bean:message key="layout.form.title" /></b></td>
-				<td>${newsForm.newsMessage.title}</td>
-			</tr>
-			<tr>
-				<td><b><bean:message key="layout.form.newsdate" /></b></td>
-				<td>${newsForm.newsMessage.currentDate}</td>
-			</tr>
-			<tr>
-				<td><b><bean:message key="layout.form.brief" /></b></td>
-				<td class="textfield">${newsForm.newsMessage.brief}</td>
-			</tr>
-			<tr>
-				<td><b><bean:message key="layout.form.content" /></b></td>
-				<td class="textfield">${newsForm.newsMessage.content}</td>
-			</tr>
-		</table>
-		<p style="width: 100%; text-align: right">
-			<html:link action="/news.do?method=edit">
-				<bean:message key="layout.button.edit" />
-			</html:link>
-			<bean:define id="id" property="newsId"
+<html:hidden property="method" value="none" />
+<html:hidden property="newsId" value="${newsForm.newsMessage.id}" />
+<div class="message">
+	<table>
+		<col width="170px">
+		<col>
+		<tr>
+			<td class="innertitle"><bean:message key="layout.form.title" /></td>
+			<td class="innertext">${newsForm.newsMessage.title}</td>
+		</tr>
+		<tr>
+			<td class="innertitle"><bean:message key="layout.form.newsdate" /></td>
+			<td class="innertext">${newsForm.dateAsString}</td>
+		</tr>
+		<tr>
+			<td class="innertitle"><bean:message key="layout.form.brief" /></td>
+			<td class="innertext">${newsForm.newsMessage.brief}</td>
+		</tr>
+		<tr>
+			<td class="innertitle"><bean:message key="layout.form.content" /></td>
+			<td class="innertext">${newsForm.newsMessage.content}</td>
+		</tr>
+	</table>
+
+	<div class="viewbtn">
+		<html:form action="/news.do?method=delete"
+			onsubmit="return confirm(msgRemoveGroupConfirmMessage);">
+			<html:hidden name="newsForm" property="listNewsId"
 				value="${newsForm.newsMessage.id}" />
-			<html:link action="/news.do?method=delete"
-				onclick="return confirm(msgRemoveGroupConfirmMessage);"
-				paramId="newsId" paramName="id">
+			<html:submit>
 				<bean:message key="layout.button.delete" />
-			</html:link>
-		</p>
+			</html:submit>
+		</html:form>
 	</div>
-</html:form>
+		<div class="viewbtn">
+		<html:form action="/news.do?method=edit">
+			<html:hidden property="newsForm.newsMessage.id"
+				value="${newsForm.newsMessage.id}" />
+			<html:submit styleId="actionButton">
+				<bean:message key="layout.button.edit" />
+			</html:submit>
+		</html:form>
+	</div>
+</div>

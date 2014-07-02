@@ -12,44 +12,41 @@
 <c:set var="page" value="page.addnews" scope="session" />
 <title><bean:message key="layout.title.addnews" /></title>
 
-<html:form action="/news?method=save"
-	onsubmit="return validateNewsMessage('newsForm');" styleClass="message">
+<html:form action="/news?method=save" styleClass="message">
 	<html:hidden property="method" value="none" />
-
 	<table>
 		<col width="150px">
 		<col>
 		<tr>
-			<td><b><bean:message key="layout.form.title" /></b></td>
+			<td class="innertitle"><bean:message key="layout.form.title" /></td>
 			<td><html:text name="newsForm" property="newsMessage.title"
 					maxlength="100" size="100" value="${newsForm.newsMessage.title}" /></td>
 		</tr>
 		<tr>
 			<jsp:useBean id="date" class="java.util.Date" />
-			<fmt:formatDate value="${date}" pattern="yyyy-MM-dd" var="currDate" />
+			<fmt:formatDate value="${date}" pattern="MM/dd/yyyy" var="currDate" />
 			<c:if test="${newsForm.newsMessage.currentDate ne null}">
 				<fmt:formatDate value="${newsForm.newsMessage.currentDate }"
-					pattern="yyyy-MM-dd" var="currDate" />
+					pattern="MM/dd/yyyy" var="currDate" />
 			</c:if>
-			<td><b><bean:message key="layout.form.newsdate" /></b></td>
-			<td><html:text name="newsForm"
-					property="newsMessage.currentDate" value="${currDate }" /></td>
+			<td class="innertitle"><bean:message key="layout.form.newsdate" /></td>
+			<td><html:text name="newsForm" property="dateAsString"
+					value="${currDate }" /></td>
 		</tr>
-
 		<tr>
-			<td><b><bean:message key="layout.form.brief" /></b></td>
+			<td class="innertitle"><bean:message key="layout.form.brief" /></td>
 			<td class="textfield"><html:textarea rows="10" cols="80"
 					name="newsForm" property="newsMessage.brief"
 					value="${newsForm.newsMessage.brief}" /></td>
 		</tr>
 		<tr>
-			<td><b><bean:message key="layout.form.content" /></b></td>
+			<td class="innertitle"><bean:message key="layout.form.content" /></td>
 			<td class="textfield"><html:textarea rows="20" cols="80"
 					name="newsForm" property="newsMessage.content"
 					value="${newsForm.newsMessage.content}" /></td>
 		</tr>
 	</table>
-	<p style="width: 100%; text-align: center;">
+	<div class="createbutton">
 		<html:submit onclick="return validateNewsMessage('newsForm');">
 			<bean:message key="layout.button.save" />
 		</html:submit>
@@ -57,5 +54,5 @@
 			onclick="location='/newsproject/news.do?method=cancel'">
 			<bean:message key="layout.button.cancel" />
 		</html:button>
-	</p>
+	</div>
 </html:form>

@@ -2,11 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<div class="menubar">
-	<div id="menuTitle">
-		<h2>
-			<bean:message key="layout.title.welcome" />
-		</h2>
+<div class="menu">
+	<div class="menuTitle">
+		<bean:message key="layout.title.welcome" />
 	</div>
 	<div id="menuInner">
 		<ul>

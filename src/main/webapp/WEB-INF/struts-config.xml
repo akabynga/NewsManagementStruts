@@ -15,6 +15,12 @@
 		<exception key="error.global.mesage" type="java.lang.Exception"
 			handler="com.epam.exceptions.ExceptionHandler.MyExceptionHandler"
 			path="/jsp/tiles/body/error-body.jsp" />
+		<exception key="error.global.mesage" type="by.epam.news.exception.DaoLayerException"
+			handler="com.epam.exceptions.ExceptionHandler.MyExceptionHandler"
+			path="/jsp/tiles/body/error-body.jsp" />
+		<exception key="error.global.mesage" type="by.epam.news.exception.TechnicalException"
+			handler="com.epam.exceptions.ExceptionHandler.MyExceptionHandler"
+			path="/jsp/tiles/body/error-body.jsp" />
 	</global-exceptions>
 	<!-- Global forwards -->
 	<global-forwards>

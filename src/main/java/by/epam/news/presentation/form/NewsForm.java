@@ -1,11 +1,14 @@
 package by.epam.news.presentation.form;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
 import by.epam.news.entity.News;
+import by.epam.news.exception.TechnicalException;
+import by.epam.news.util.DateConverter;
 
 public final class NewsForm extends ActionForm {
 
@@ -52,4 +55,16 @@ public final class NewsForm extends ActionForm {
 		this.listNewsId = listNewsId;
 	}
 
+	public String getDateAsString() {
+		return DateConverter.convertDateToString(newsMessage.getCurrentDate());
+	}
+
+	public void setDateAsString(String dateAsString) throws TechnicalException {
+		try {
+			newsMessage.setCurrentDate(DateConverter
+					.convertStringToDate(dateAsString));
+		} catch (ParseException e) {
+			throw new TechnicalException("Some problem with date convert", e);
+		}
+	}
 }

@@ -1,3 +1,15 @@
+function validateRemove(form) {
+	var checkbox;
+	for (var i = 0; i < form.elements.length; i++) {
+		checkbox = form.elements[i];
+		if (checkbox.checked) {
+			return confirm(msgRemoveGroupConfirmMessage);
+		}
+	}
+	alert(msgNothingNewsForDelete);
+	return false;
+}
+
 function validateNewsMessage(formName) {
 
 	var form = document.forms[formName];
@@ -6,34 +18,34 @@ function validateNewsMessage(formName) {
 	var titleMaxLength = 100;
 	var briefMaxLength = 500;
 	var contentMaxLength = 1024;
-	var date_pattern = "^(20[0-9][0-9])-(0[1-9]|[10-12])-(0[1-9]|[10-31])$";
+	var date_pattern = "^(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)$";
 
 	var element = null;
 	element = form.elements["newsMessage.title"];
 	if (markIfEmpty(element)) {
-		message += index++ + ") " + msgTitleRequired + "<br>";
+		message += index++ + ") " + msgTitleRequired + "\n";
 	} else if (markIfBigger(element, titleMaxLength)) {
-		message += index++ + ") " + msgTitleIsBiger + "<br>";
+		message += index++ + ") " + msgTitleIsBiger + "\n";
 	}
-	element = form.elements["newsMessage.currentDate"];
+	element = form.elements["dateAsString"];
 	if (markIfEmpty(element)) {
-		message += index++ + ") " + msgDateRequired + "<br>";
+		message += index++ + ") " + msgDateRequired + "\n";
 	} else if (markIfInvalid(date_pattern, element.value, element)) {
-		message += index++ + ") " + msgDateFormat + "<br>";
+		message += index++ + ") " + msgDateFormat + "\n";
 	}
 	element = form.elements["newsMessage.brief"];
 	if (markIfEmpty(element)) {
-		message += index++ + ") " + msgBriefRequired + "<br>";
+		message += index++ + ") " + msgBriefRequired + "\n";
 	} else if (markIfBigger(element, briefMaxLength)) {
-		message += index++ + ") " + msgBriefIsBiger + "<br>";
+		message += index++ + ") " + msgBriefIsBiger + "\n";
 	}
 	element = form.elements["newsMessage.content"];
 	if (markIfEmpty(element)) {
-		message += index++ + ") " + msgContentRequired + "<br>";
+		message += index++ + ") " + msgContentRequired + "\n";
 	} else if (markIfBigger(element, contentMaxLength)) {
-		message += index++ + ") " + msgContentIsBiger + "<br>";
+		message += index++ + ") " + msgContentIsBiger + "\n";
 	}
-	errorMessage(form, message, formName);
+	errorMessage(message);
 	if (message) {
 		return false;
 	} else {
@@ -68,28 +80,8 @@ function markIfBigger(element, maxLength) {
 		return false;
 	}
 }
-function errorMessage(element, message, formName) {
-	var form = document.forms[formName];
-	var errorMessage = document.getElementById("error-message");
-	if (errorMessage) {
-		form.removeChild(errorMessage);
-	}
+function errorMessage(message) {
 	if (message) {
-		var errorElement = document.createElement('div');
-		errorElement.id = 'error-message';
-		errorElement.innerHTML = message;
-		element.insertBefore(errorElement, null);
+		alert(message);
 	}
-}
-
-function validateRemove(form) {
-	var checkbox;
-	for (var i = 0; i < form.elements.length; i++) {
-		checkbox = form.elements[i];
-		if (checkbox.checked) {
-			return confirm(msgRemoveGroupConfirmMessage);
-		}
-	}
-	alert(msgNothingNewsForDelete);
-	return false;
 }

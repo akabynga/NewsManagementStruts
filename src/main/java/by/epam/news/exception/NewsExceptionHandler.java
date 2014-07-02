@@ -11,7 +11,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ExceptionHandler;
 import org.apache.struts.config.ExceptionConfig;
 
-public class NewsExceptionHandler extends ExceptionHandler {
+public final class NewsExceptionHandler extends ExceptionHandler {
 	
 	private static final Logger LOG = Logger
 			.getLogger(NewsExceptionHandler.class);

@@ -10,20 +10,24 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<script src="jsp/messages.jsp" type="text/javascript"></script>
-<script src="js/validation.js" type="text/javascript"></script>
+<script src="jsp/tiles/messages.jsp" type="text/javascript"></script>
+<script src="js/validationNews.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <meta charset="utf-8">
 <title><bean:message key="layout.lable.title" /></title>
 
 </head>
-<body>
+<body class="layout">
 	<tiles:insert attribute="header" />
-	<div class="mainpart">
-		<tiles:insert attribute="menu" />
-		<div class="content">
-			<tiles:insert attribute="body" />
+	<tiles:insert attribute="menu" />
+	<div class="content">
+		<div class="titlelist">
+			<html:link action="/news.do?method=list">
+				<bean:message key="layout.title.welcome" />
+			</html:link>
+			<bean:message key="layout.title.newslist" />
 		</div>
+		<tiles:insert attribute="body" />
 	</div>
 	<tiles:insert attribute="footer" />
 </body>

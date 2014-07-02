@@ -13,8 +13,6 @@ public interface INewsDAO {
 
 	News findById(int id) throws DaoLayerException;
 
-	void delete(int id) throws DaoLayerException;
-
 	void update(News news) throws DaoLayerException;
 
 	void deleteList(List<Integer> newsList) throws DaoLayerException;

@@ -2,17 +2,30 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+
 <div class="header">
-	<span id="headertitle"> <bean:message key="layout.lable.title" />
-	</span>
-	<div id="langbar">
-		<html:link action="/locale.do?language=en">
+	<div>
+		<h1>
+			<bean:message key="layout.lable.title" />
+		</h1>
+	</div>
+	<div class="langbar">
+		<html:link action="/local
+				e.do?language=en">
 			<bean:message key="layout.button.english" />
 		</html:link>
-
 		<html:link action="/locale.do?language=ru">
 			<bean:message key="layout.button.russian" />
 		</html:link>
 	</div>
 </div>
+
+
+
+
+
+
+
+
+
 

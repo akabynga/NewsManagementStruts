@@ -1,0 +1,65 @@
+package by.epam.news.database.dao.impl;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
+
+import by.epam.news.constant.NewsConstant;
+import by.epam.news.database.dao.INewsDAO;
+import by.epam.news.entity.News;
+
+@Repository
+@Transactional
+public final class JpaNewsDAO implements INewsDAO {
+
+	private EntityManager entityManager;
+
+	public JpaNewsDAO() {
+		super();
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<News> getList() throws DataAccessException {
+		return entityManager.createQuery(NewsConstant.SELECT_ALL_NEWS)
+				.getResultList();
+	}
+
+	@Override
+	public News save(News news) throws DataAccessException {
+		entityManager.persist(news);
+		return news;
+	}
+
+	@Override
+	public News findById(int id) throws DataAccessException {
+		News news = entityManager.find(News.class, id);
+		return news;
+	}
+
+	@Override
+	public void update(News news) throws DataAccessException {
+		entityManager.merge(news);
+	}
+
+	@Override
+	public void deleteList(List<Integer> newsList) throws DataAccessException {
+		Query query = entityManager.createQuery(NewsConstant.DELETE_BY_ID);
+		query.setParameter(NewsConstant.DELETE_NEWS, newsList);
+		query.executeUpdate();
+	}
+
+}

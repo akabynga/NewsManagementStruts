@@ -3,24 +3,27 @@ package by.epam.news.database.pool.impl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.log4j.Logger;
 
 import by.epam.news.database.pool.IConnectionPool;
+import by.epam.news.exception.TechnicalException;
 
 public final class ConnectionPool implements IConnectionPool {
 
-	public static final Logger LOG = Logger.getLogger(ConnectionPool.class);
-	private static BlockingQueue<Connection> pool;
-
+	private static final Logger LOG = Logger.getLogger(ConnectionPool.class);
+	private static BlockingQueue<Connection> freeConnections = null;
+	private List<Connection> allConnections = new ArrayList<Connection>();
 	private String driverClass;
 	private String url;
 	private String user;
 	private String password;
 	private int poolSize;
-	private boolean flag = true;
 
 	private ConnectionPool() {
 		super();
@@ -70,7 +73,7 @@ public final class ConnectionPool implements IConnectionPool {
 		LOG.info("Trying to create pool of connections...");
 		try {
 			Class.forName(driverClass);
-			pool = new ArrayBlockingQueue<Connection>(poolSize);
+			freeConnections = new ArrayBlockingQueue<Connection>(poolSize);
 			for (int i = 0; i < poolSize; i++) {
 				createConnection();
 			}
@@ -87,21 +90,22 @@ public final class ConnectionPool implements IConnectionPool {
 	private void createConnection() throws SQLException {
 		Connection connection = null;
 		connection = DriverManager.getConnection(url, user, password);
-		pool.offer(connection);
+		freeConnections.add(connection);
+		allConnections.add(connection);
 	}
 
-	public Connection getConnection() {
-		Connection connection = null;
-		if (flag) {
-			connection = pool.poll();
+	public Connection getConnection() throws TechnicalException {
+		try {
+			return freeConnections.take();
+		} catch (InterruptedException e) {
+			throw new TechnicalException();
 		}
-		return connection;
 	}
 
 	public void closeConnection(Connection connection) {
 		try {
 			if (!connection.isClosed()) {
-				pool.offer(connection);
+				freeConnections.add(connection);
 			} else {
 				LOG.warn("Connection already closed. Possible `leakage` of connections.");
 			}
@@ -113,26 +117,16 @@ public final class ConnectionPool implements IConnectionPool {
 	}
 
 	public void destroy() {
-		flag = false;
-		Connection connection = null;
-		int realSize = poolSize;
-		while (realSize > 0) {
+		for (Iterator<Connection> iterator = allConnections.iterator(); iterator
+				.hasNext();) {
+			Connection connection = iterator.next();
 			try {
-				connection = pool.take();
-			} catch (InterruptedException e) {
-				LOG.warn("Waiting connection, interrupt exception.", e);
-			}
-			if (connection != null) {
-				try {
-					if (!connection.isClosed()) {
-						connection.close();
-					}
-				} catch (SQLException e) {
-					LOG.warn("Problem with connection closing", e);
-				}
-				realSize--;
+				connection.close();
+			} catch (SQLException e) {
+				LOG.error("Some problem with ConnectionPool.destroy:", e);
 			}
 		}
+		freeConnections.removeAll(freeConnections);
 		LOG.info("Pool succesfully cleared.");
 	}
 }

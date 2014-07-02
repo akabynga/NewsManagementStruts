@@ -5,10 +5,10 @@
 
 <tiles-definitions>
 	<!-- Common tiles -->
-	<definition name="page.main" path="/jsp/layouts/layout.jsp">
+	<definition name="page.main" path="/jsp/tiles/layouts/layout.jsp">
 		<put name="header" value="/jsp/tiles/header/header.jsp" />
 		<put name="footer" value="/jsp/tiles/footer/footer.jsp" />
-		<put name="menu" value="/jsp/menu/menu.jsp" />
+		<put name="menu" value="/jsp/tiles/menu/menu.jsp" />
 	</definition>
 
 	<!-- Body -->

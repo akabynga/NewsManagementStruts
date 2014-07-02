@@ -7,9 +7,11 @@
 <c:set var="page" value="page.error" scope="session" />
 <title><bean:message key="layout.title.error" /></title>
 
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <div class="error">
 	<bean:message key="layout.lable.error" />
 </div>
-<html:link action="/news">
+<html:link action="/news.do?method=list">
 	<bean:message key="error.redirect" />
 </html:link>

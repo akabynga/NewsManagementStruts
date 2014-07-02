@@ -3,16 +3,33 @@ package by.epam.news.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
-public final class News implements Serializable, Cloneable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "NEWS")
+public class News implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ")
+	@SequenceGenerator(name = "SEQ", sequenceName = "AUTOINC_SEQ")
+	@Column(name = "ID")
 	private int id;
+	@Column(name = "TITLE", length = 100)
 	private String title;
+	@Column(name = "BRIEF", length = 500)
 	private String brief;
+	@Column(name = "CONTENT", length = 1024)
 	private String content;
+	@Column(name = "NEWSDATE")
 	private Date currentDate;
-	private boolean selected = false;
 
 	public News() {
 
@@ -56,14 +73,6 @@ public final class News implements Serializable, Cloneable {
 
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
 	}
 
 	@Override
