@@ -65,14 +65,17 @@ html,body {
 }
 
 .header {
+	
 	height: 100px;
 	border-top: 0;
 	clear: both;
 	margin: 2px auto 0;
 	font-family: sans-serif;
+	height: 100px;
 }
 
 .header a {
+	
 	float: right;
 	margin: 0px 5px 5px 5px;
 }

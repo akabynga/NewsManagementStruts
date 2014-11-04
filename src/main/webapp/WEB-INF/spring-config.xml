@@ -41,6 +41,7 @@
 		<property name="initialSize" value="${db.poolSize}" />
 		<property name="maxActive" value="${db.maxActive}" />
 	</bean>
+
 	<!-- NewsDAO -->
 	<bean name="newsDAO" class="by.epam.news.database.dao.impl.NewsDAO">
 		<property name="dataSource" ref="simpleDataSource" />

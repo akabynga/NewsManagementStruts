@@ -17,6 +17,8 @@ import by.epam.news.entity.News;
 @Transactional
 public final class HibernateNewsDAO implements INewsDAO {
 
+	
+	
 	private SessionFactory sessionFactory;
 
 	public HibernateNewsDAO() {
