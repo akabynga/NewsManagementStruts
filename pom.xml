@@ -19,7 +19,7 @@
 		<servlet.version>2.5</servlet.version>
 		<struts.version>1.3.10</struts.version>
 		<!-- Spring -->
-		<spring-framework.version>3.2.3.RELEASE</spring-framework.version>
+		<spring-framework.version>5.2.21.RELEASE</spring-framework.version>
 
 		<!-- Hibernate / JPA -->
 		<hibernate.version>4.2.1.Final</hibernate.version>
